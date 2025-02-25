@@ -1,4 +1,4 @@
-from util import input_data
+from util import input_data, normalize_vector
 from solver import solve
 
 
@@ -7,10 +7,11 @@ def main():
     solution, iterations_amount, matrix_norm, error_vector = solve(matrix, vector, accuracy)
     if solution is None or iterations_amount is None or matrix_norm is None or error_vector is None:
         return
-    print("Решение:", solution)
+
+    print("Решение:", normalize_vector(solution))
     print("Количество итераций:", iterations_amount)
-    print("Норма матрицы:", matrix_norm)
-    print("Вектор погрешностей:", error_vector)
+    print("Норма матрицы:", round(matrix_norm, 4))
+    print("Вектор погрешностей:", normalize_vector(error_vector))
 
 
 if __name__ == "__main__":
