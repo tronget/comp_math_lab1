@@ -3,14 +3,14 @@ from util import *
 
 def solve(matrix, vector, accuracy):
     if not check_diagonal_dominance(matrix):
-        sort_for_diagonal_dominance(matrix)
+        sort_for_diagonal_dominance(matrix, vector)
         if not check_diagonal_dominance(matrix):
             print("Невозможно найти решение матрицы!")
             return None, None, None, None
     n = len(vector)
-    prev_approximation = [vector[i] / matrix[i][i] for i in range(n)]
-    error_vector = [accuracy] * n
     iterations_amount = 0
+    error_vector = [accuracy] * n
+    prev_approximation = [vector[i] / matrix[i][i] for i in range(n)]
     while any(x >= accuracy for x in error_vector):
         iterations_amount += 1
         approximation = [0] * n

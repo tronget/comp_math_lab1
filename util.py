@@ -13,12 +13,13 @@ def check_diagonal_dominance(matrix):
     return True
 
 
-def sort_for_diagonal_dominance(matrix):
+def sort_for_diagonal_dominance(matrix, vector):
     n = len(matrix)
     for i in range(n):
         max_row = max(range(i, n), key=lambda x: abs(matrix[x][i]))
         if max_row != i:
             matrix[i], matrix[max_row] = matrix[max_row], matrix[i]
+            vector[i], vector[max_row] = vector[max_row], vector[i]
 
 
 def input_int(text, left, right):
@@ -38,7 +39,9 @@ def input_int(text, left, right):
 def input_accuracy():
     while True:
         try:
-            accuracy = float(input("Введите точность: "))
+            accuracy = float(input("Введите точность: ").replace(",", "."))
+            if accuracy < 0.0000001:
+                raise ValueError("Минимальное значение точности 0.0000001")
             return accuracy
         except ValueError as error:
             print(f"Ошибка ввода: {error}")
@@ -85,7 +88,7 @@ def read_from_file(filename):
 
 
 def input_data():
-    print("Выберите режим чтения данных (введите 1 или 2)")
+    print("Выберите режим чтения данных (введите 1, 2 или 3)")
     print("1 - ввести матрицу вручную")
     print("2 - считать матрицу из файла")
     print("3 - сгенерировать рандомную матрицу")
